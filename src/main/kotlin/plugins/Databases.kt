@@ -10,10 +10,10 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.sql.Connection
-import java.sql.DriverManager
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.sql.Connection
+import java.sql.DriverManager
 
 fun Application.configureDatabases() {
     val database = Database.connect(

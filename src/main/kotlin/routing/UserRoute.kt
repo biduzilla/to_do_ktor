@@ -1,9 +1,8 @@
 package com.ricky.routing
 
-import com.ricky.exception.GenericServerError
 import com.ricky.model.User
 import com.ricky.service.UserService
-import com.ricky.service.impl.UserServiceImpl
+import com.ricky.utils.getParameter
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -16,18 +15,12 @@ fun Route.userRoutes(userService: UserService) {
             call.respond(users)
         }
         get("/{id}") {
-            val id = call.parameters["id"]?.toLongOrNull() ?: throw GenericServerError(
-                statusCode = HttpStatusCode.BadRequest.value,
-                errorMessage = "O parâmetro ID é obrigatório",
-                httpStatus = HttpStatusCode.BadRequest.description
-            )
-
+            val id = call.getParameter("id").toLong()
             val user = userService.getById(id)
             call.respond(user)
         }
         get("/by-name/{name}") {
-            val name = call.parameters["name"]
-                ?: throw IllegalArgumentException("Nome não fornecido")
+            val name = call.getParameter("name")
 
             val user = userService.getUserByName(name)
             call.respond(user)
@@ -38,11 +31,7 @@ fun Route.userRoutes(userService: UserService) {
             call.respond(HttpStatusCode.Created, userSave)
         }
         delete("/{id}") {
-            val id = call.parameters["id"]?.toLongOrNull() ?: throw GenericServerError(
-                statusCode = HttpStatusCode.BadRequest.value,
-                errorMessage = "O parâmetro ID é obrigatório",
-                httpStatus = HttpStatusCode.BadRequest.description
-            )
+            val id = call.getParameter("id").toLong()
             userService.removeUser(id)
             call.respond(HttpStatusCode.NoContent)
         }

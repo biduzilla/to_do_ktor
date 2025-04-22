@@ -37,7 +37,13 @@ class TaskServiceImpl(private val taskRepository: TaskRepository) : TaskService 
     }
 
     override suspend fun addTask(task: Task) {
-        getByName(task.name)
+        if(taskRepository.existsByName(task.name)){
+            throw GenericServerError(
+                statusCode = HttpStatusCode.BadRequest.value,
+                errorMessage = "Tarefa com nome $task.name já cadastrado",
+                httpStatus = HttpStatusCode.BadRequest.description
+            )
+        }
         return addTask(task)
     }
 

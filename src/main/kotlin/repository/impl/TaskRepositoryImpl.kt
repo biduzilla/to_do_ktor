@@ -29,7 +29,7 @@ class TaskRepositoryImpl : TaskRepository {
     override suspend fun getByUserId(id: Long): List<Task> {
         return suspendTransaction {
             TaskDAO
-                .find{ TaskTable.idUser eq id}
+                .find { TaskTable.idUser eq id }
                 .map { it.toTask() }
         }
     }
@@ -52,13 +52,13 @@ class TaskRepositoryImpl : TaskRepository {
         }
     }
 
-    override suspend fun addTask(task: Task) {
+    override suspend fun addTask(task: Task): Task {
         return suspendTransaction {
             TaskDAO.new {
                 name = task.name
                 description = task.description
                 priority = task.priority
-            }
+            }.toTask()
         }
     }
 
@@ -68,6 +68,15 @@ class TaskRepositoryImpl : TaskRepository {
                 TaskTable.id eq id
             }
             rowsDeleted == 1
+        }
+    }
+
+    override suspend fun existsByName(name: String): Boolean {
+        return suspendTransaction {
+            TaskTable
+                .select(TaskTable.name eq name)
+                .limit(1)
+                .count() > 0
         }
     }
 }

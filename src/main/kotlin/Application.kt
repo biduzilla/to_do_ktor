@@ -1,5 +1,6 @@
 package com.ricky
 
+import DependencyContainer
 import com.ricky.di.appModule
 import com.ricky.plugins.*
 import io.ktor.server.application.*

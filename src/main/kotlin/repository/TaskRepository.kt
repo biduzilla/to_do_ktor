@@ -9,7 +9,8 @@ interface TaskRepository {
     suspend fun getByUserId(id: Long): List<Task>
     suspend fun taskByPriority(priority: Priority): List<Task>
     suspend fun taskByName(name: String): Task?
-    suspend fun addTask(task: Task)
+    suspend fun addTask(task: Task):Task
     suspend fun removeTask(id: Long)
+    suspend fun existsByName(name: String): Boolean
 
 }
