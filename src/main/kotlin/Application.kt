@@ -23,4 +23,6 @@ fun Application.module() {
     configureSerialization()
     configureDatabases()
     configureRouting()
+    configureValidation()
+    configureStatusPages()
 }
