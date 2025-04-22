@@ -1,4 +1,4 @@
-package com.ricky
+package com.ricky.plugins
 
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable

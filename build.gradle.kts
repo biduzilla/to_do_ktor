@@ -27,6 +27,15 @@ dependencies {
     implementation(libs.h2)
     implementation(libs.exposed.core)
     implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
+
+    //Koin
+    implementation("io.insert-koin:koin-ktor:3.5.0")
+    implementation("io.insert-koin:koin-core:3.5.0")
+    implementation("io.insert-koin:koin-logger-slf4j:3.5.0")
+
+    implementation("io.ktor:ktor-server-status-pages:3.1.2")
+    implementation("io.ktor:ktor-server-request-validation:3.1.2")
+
     implementation(libs.exposed.jdbc)
     implementation(libs.ktor.server.host.common)
     implementation(libs.ktor.server.netty)

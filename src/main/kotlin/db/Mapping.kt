@@ -11,12 +11,12 @@ import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-object UserTable : LongIdTable("user") {
+object UserTable : LongIdTable("TAB_USER") {
     val userName = varchar("user_name", 50)
     val password = varchar("password", 60)
 }
 
-object TaskTable : LongIdTable("task") {
+object TaskTable : LongIdTable("TAB_TASK") {
     val idUser = long("id_user").references(UserTable.id)
     val name = varchar("name", 100)
     val description = varchar("description", 500).nullable()

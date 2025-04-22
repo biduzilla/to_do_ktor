@@ -1,4 +1,4 @@
-package com.ricky
+package com.ricky.plugins
 
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
