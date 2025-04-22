@@ -14,14 +14,14 @@ fun Application.configureStatusPages() {
         exception<Throwable> { call, cause ->
             when (cause) {
                 is GenericServerError -> {
-                    call.respond(HttpStatusCode.fromValue(cause.httpStatusCode), cause)
+                    call.respond(HttpStatusCode.fromValue(cause.statusCode), cause)
                 }
 
                 is RequestValidationException -> {
                     call.respond(HttpStatusCode.BadRequest, GenericServerError(
-                        httpStatusCode = HttpStatusCode.BadRequest.value,
+                        statusCode = HttpStatusCode.BadRequest.value,
                         errorMessage = cause.reasons.toString(),
-                        errorCode = HttpStatusCode.BadRequest.description
+                        httpStatus = HttpStatusCode.BadRequest.description
                     ))
                 }
 

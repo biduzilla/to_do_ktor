@@ -1,12 +1,13 @@
 import com.ricky.repository.impl.UserRepositoryImpl
 import com.ricky.service.UserService
+import com.ricky.service.impl.UserServiceImpl
 
 class DependencyContainer private constructor() {
     val userService: UserService
 
     init {
         val userRepository = UserRepositoryImpl()
-        this.userService = UserService(userRepository)
+        this.userService = UserServiceImpl(userRepository)
     }
 
     companion object {

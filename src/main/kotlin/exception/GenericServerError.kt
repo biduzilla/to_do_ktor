@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GenericServerError(
-    val httpStatusCode: Int,
+    val statusCode: Int,
     val errorMessage: String,
-    val errorCode: String? = null
+    val httpStatus: String? = null
 ) : RuntimeException(errorMessage)
