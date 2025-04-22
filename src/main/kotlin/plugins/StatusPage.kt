@@ -18,7 +18,11 @@ fun Application.configureStatusPages() {
                 }
 
                 is RequestValidationException -> {
-                    call.respond(HttpStatusCode.BadRequest, cause.reasons.joinToString())
+                    call.respond(HttpStatusCode.BadRequest, GenericServerError(
+                        httpStatusCode = HttpStatusCode.BadRequest.value,
+                        errorMessage = cause.reasons.toString(),
+                        errorCode = HttpStatusCode.BadRequest.description
+                    ))
                 }
 
                 else -> {
