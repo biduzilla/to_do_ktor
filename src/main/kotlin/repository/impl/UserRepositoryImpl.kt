@@ -27,12 +27,12 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    override suspend fun addUser(user: User) {
+    override suspend fun addUser(user: User):User {
         return suspendTransaction {
             UserDAO.new {
                 userName = user.userName
                 password = user.password
-            }
+            }.toUser()
         }
     }
 

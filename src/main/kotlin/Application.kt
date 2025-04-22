@@ -12,6 +12,8 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
 
+    val dependencies = DependencyContainer.getInstance()
+
     install(Koin) {
         slf4jLogger()
         modules(appModule)
@@ -19,7 +21,7 @@ fun Application.module() {
 
     configureSerialization()
     configureDatabases()
-    configureRouting()
+    configureRouting(dependencies)
     configureValidation()
     configureStatusPages()
 }

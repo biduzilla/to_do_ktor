@@ -7,10 +7,8 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.koin.ktor.ext.inject
 
-fun Route.userRoutes() {
-    val userService by inject<UserService>()
+fun Route.userRoutes(userService: UserService) {
     route("/users") {
         get {
             val users = userService.getAll()
@@ -18,8 +16,9 @@ fun Route.userRoutes() {
         }
         get("/{id}") {
             val id = call.parameters["id"]?.toLongOrNull() ?: throw GenericServerError(
-                httpStatus = HttpStatusCode.BadRequest,
-                errorMessage = "O parâmetro ID é obrigatório"
+                httpStatusCode = HttpStatusCode.BadRequest.value,
+                errorMessage = "O parâmetro ID é obrigatório",
+                errorCode = HttpStatusCode.BadRequest.description
             )
 
             val user = userService.getById(id)
@@ -39,8 +38,9 @@ fun Route.userRoutes() {
         }
         delete("/{id}") {
             val id = call.parameters["id"]?.toLongOrNull() ?: throw GenericServerError(
-                httpStatus = HttpStatusCode.BadRequest,
-                errorMessage = "O parâmetro ID é obrigatório"
+                httpStatusCode = HttpStatusCode.BadRequest.value,
+                errorMessage = "O parâmetro ID é obrigatório",
+                errorCode = HttpStatusCode.BadRequest.description
             )
             userService.removeUser(id)
             call.respond(HttpStatusCode.NoContent)

@@ -1,5 +1,7 @@
 package com.ricky.plugins
 
+import DependencyContainer
+import com.ricky.routing.userRoutes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -11,14 +13,11 @@ import io.ktor.server.routing.*
 import java.sql.Connection
 import java.sql.DriverManager
 import org.jetbrains.exposed.sql.*
+import kotlin.reflect.jvm.internal.impl.descriptors.impl.ModuleDependencies
 
-fun Application.configureRouting() {
+fun Application.configureRouting(dependencies: DependencyContainer) {
     routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
-        // Static plugin. Try to access `/static/index.html`
-        staticResources("/static", "static")
+        userRoutes(dependencies.userService)
     }
     /*
         routing {

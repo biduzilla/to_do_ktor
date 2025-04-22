@@ -25,13 +25,18 @@ dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.postgresql)
     implementation(libs.h2)
-    implementation(libs.exposed.core)
-    implementation("org.jetbrains.exposed:exposed-dao:0.41.1")
+    implementation ("org.jetbrains.exposed:exposed-core:0.61.0")
+    implementation ("org.jetbrains.exposed:exposed-crypt:0.61.0")
+    implementation ("org.jetbrains.exposed:exposed-dao:0.61.0")
+    implementation ("org.jetbrains.exposed:exposed-jdbc:0.61.0")
 
     //Koin
-    implementation("io.insert-koin:koin-ktor:3.5.0")
-    implementation("io.insert-koin:koin-core:3.5.0")
-    implementation("io.insert-koin:koin-logger-slf4j:3.5.0")
+//    implementation("io.insert-koin:koin-ktor:4.0.3")
+//    implementation("io.insert-koin:koin-core:4.0.3")
+//    implementation("io.insert-koin:koin-logger-slf4j:4.0.3")
+//    implementation("io.insert-koin:koin-bom:4.0.3")
+    implementation("io.insert-koin:koin-ktor:4.0.3")
+    implementation("io.insert-koin:koin-logger-slf4j:4.0.3")
 
     implementation("io.ktor:ktor-server-status-pages:3.1.2")
     implementation("io.ktor:ktor-server-request-validation:3.1.2")

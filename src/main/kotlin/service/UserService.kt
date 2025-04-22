@@ -7,7 +7,7 @@ import io.ktor.http.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class UserService(private val userRepository:UserRepository) : KoinComponent {
+class UserService(private val userRepository:UserRepository) {
 //    private val userRepository by inject<UserRepository>()
     suspend fun getAll(): List<User> {
         return userRepository.getAll()
@@ -15,13 +15,14 @@ class UserService(private val userRepository:UserRepository) : KoinComponent {
 
     suspend fun getById(idUser: Long): User {
         return userRepository.getById(idUser) ?: throw GenericServerError(
-            httpStatus = HttpStatusCode.NotFound,
-            errorMessage = "Usuário com ID $idUser não encontrado"
+            httpStatusCode = HttpStatusCode.NotFound.value,
+            errorMessage = "Usuário com ID $idUser não encontrado",
+            errorCode = HttpStatusCode.NotFound.description
         )
     }
 
-    suspend fun addUser(user: User) {
-        userRepository.addUser(user)
+    suspend fun addUser(user: User):User {
+        return userRepository.addUser(user)
     }
 
     suspend fun removeUser(idUser: Long) {
@@ -30,8 +31,9 @@ class UserService(private val userRepository:UserRepository) : KoinComponent {
 
     suspend fun getUserByName(name: String): User {
         return userRepository.getUserByName(name) ?: throw GenericServerError(
-            httpStatus = HttpStatusCode.NotFound,
-            errorMessage = "Usuário com nome $name não encontrado"
+            httpStatusCode = HttpStatusCode.NotFound.value,
+            errorMessage = "Usuário com nome $name não encontrado",
+            errorCode = HttpStatusCode.NotFound.description
         )
     }
 }

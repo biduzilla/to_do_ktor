@@ -1,8 +1,10 @@
 package com.ricky.exception
 
-import io.ktor.http.*
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GenericServerError(
-    val httpStatus: HttpStatusCode,
-    val errorMessage: String
+    val httpStatusCode: Int,
+    val errorMessage: String,
+    val errorCode: String? = null
 ) : RuntimeException(errorMessage)
