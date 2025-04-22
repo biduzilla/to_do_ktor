@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class User(
-    val idUser:Long? = null,
+    val idUser:Long,
     val userName:String,
     val password:String,
 )

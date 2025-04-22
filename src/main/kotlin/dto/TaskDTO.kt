@@ -1,25 +1,21 @@
-package com.ricky.model
+package com.ricky.dto
 
-import com.ricky.dto.TaskDTO
-import kotlinx.serialization.Serializable
+import com.ricky.model.Priority
+import com.ricky.model.Task
+import com.ricky.model.User
 
-enum class Priority {
-    Low, Medium, High, Vital
-}
-
-@Serializable
-data class Task(
+data class TaskDTO(
     val idTask: Long,
-    val idUser: Long,
+    val user: User,
     val name: String,
     val description: String?,
     val completed: Boolean,
     val priority: Priority
 ) {
-    fun toDTO(user: User): TaskDTO {
-        return TaskDTO(
+    fun toModel(): Task {
+        return Task(
             idTask = idTask,
-            user = user,
+            idUser = user.idUser,
             name = name,
             description = description,
             completed = completed,
