@@ -9,12 +9,22 @@ import io.ktor.server.response.*
 
 fun Application.configureStatusPages() {
     install(StatusPages) {
-        exception<GenericServerError> { call, cause ->
-            call.respond(cause.httpStatus, cause.errorMessage)
-        }
-
-        exception<RequestValidationException> { call, cause ->
-            call.respond(HttpStatusCode.BadRequest, cause.reasons.joinToString())
+        exception<Throwable> { call, cause ->
+            when (cause) {
+                is GenericServerError -> {
+                    call.respond(cause.httpStatus, cause.errorMessage)
+                }
+                is RequestValidationException -> {
+                    call.respond(HttpStatusCode.BadRequest, cause.reasons.joinToString())
+                }
+                else -> {
+                    call.respond(
+                        HttpStatusCode.InternalServerError,
+                        mapOf("message" to "Erro interno no servidor")
+                    )
+                    throw cause
+                }
+            }
         }
     }
 }
