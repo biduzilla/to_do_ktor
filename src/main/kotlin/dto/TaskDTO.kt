@@ -15,7 +15,7 @@ data class TaskDTO(
     fun toModel(): Task {
         return Task(
             idTask = idTask,
-            idUser = user.idUser,
+            idUser = user.idUser?:0L,
             name = name,
             description = description,
             completed = completed,

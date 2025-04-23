@@ -55,9 +55,11 @@ class TaskRepositoryImpl : TaskRepository {
     override suspend fun addTask(task: Task): Task {
         return suspendTransaction {
             TaskDAO.new {
+                idUser = task.idUser
                 name = task.name
                 description = task.description
                 priority = task.priority
+                completed = task.completed
             }.toTask()
         }
     }

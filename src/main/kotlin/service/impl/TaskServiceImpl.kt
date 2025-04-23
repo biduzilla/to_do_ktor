@@ -36,7 +36,7 @@ class TaskServiceImpl(private val taskRepository: TaskRepository) : TaskService 
         )
     }
 
-    override suspend fun addTask(task: Task) {
+    override suspend fun addTask(task: Task):Task {
         if(taskRepository.existsByName(task.name)){
             throw GenericServerError(
                 statusCode = HttpStatusCode.BadRequest.value,
@@ -44,7 +44,7 @@ class TaskServiceImpl(private val taskRepository: TaskRepository) : TaskService 
                 httpStatus = HttpStatusCode.BadRequest.description
             )
         }
-        return addTask(task)
+        return taskRepository.addTask(task)
     }
 
     override suspend fun removeTask(id: Long) {

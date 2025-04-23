@@ -9,7 +9,7 @@ enum class Priority {
 
 @Serializable
 data class Task(
-    val idTask: Long,
+    val idTask: Long?=null,
     val idUser: Long,
     val name: String,
     val description: String?,
@@ -18,7 +18,7 @@ data class Task(
 ) {
     fun toDTO(user: User): TaskDTO {
         return TaskDTO(
-            idTask = idTask,
+            idTask = idTask?:0L,
             user = user,
             name = name,
             description = description,

@@ -9,6 +9,6 @@ interface TaskService {
     suspend fun getByUserId(id: Long): List<Task>
     suspend fun taskByPriority(priority: Priority): List<Task>
     suspend fun getByName(name: String): Task
-    suspend fun addTask(task: Task)
+    suspend fun addTask(task: Task):Task
     suspend fun removeTask(id: Long)
 }
